@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hesham & Nariman — June 2, 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Hesham & Nariman — July 27, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Marcellus&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--gold:#c9a96e;--gold-light:#e2c98a;--cream:#faf5ec;--dark:#1e1710}
-html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a06;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html,body{height:100%;font-family:'Marcellus','Georgia',serif;background:#0d0a06;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
 /* ══ ENVELOPE SCREEN ══ */
 #env-screen{
@@ -16,33 +16,54 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
   background:linear-gradient(145deg,#e8e2d8 0%,#ddd6ca 50%,#d5cdc0 100%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   overflow:hidden;
-  transition:opacity 1.6s ease,transform 1.6s cubic-bezier(0.4,0,0.2,1);
+  transition:opacity 1.4s ease .1s,transform 1.6s cubic-bezier(0.65,0,0.35,1),filter 1.4s ease;
 }
-#env-screen.hide{opacity:0;transform:translateY(-100%);pointer-events:none}
+#env-screen.hide{opacity:0;transform:scale(1.12);filter:blur(10px);pointer-events:none}
 #env-screen::before{
   content:'';position:absolute;inset:0;pointer-events:none;
   background:radial-gradient(ellipse at 50% 40%,rgba(255,252,245,0.5) 0%,transparent 65%);
 }
+.env-glow{
+  position:absolute;left:50%;top:48%;width:340px;height:340px;
+  transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle,rgba(255,238,190,.55) 0%,rgba(255,238,190,0) 68%);
+  animation:glowPulse 3.6s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(.94)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.06)}}
+.dust{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.dust span{
+  position:absolute;bottom:-10px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,244,214,.95),rgba(230,190,120,0));
+  animation:driftUp linear infinite;
+}
+@keyframes driftUp{
+  0%{transform:translateY(0) translateX(0);opacity:0}
+  8%{opacity:1}
+  92%{opacity:.7}
+  100%{transform:translateY(-115vh) translateX(var(--dx));opacity:0}
+}
 
 .env{
-  position:relative;width:min(320px,84vw);cursor:pointer;
+  position:relative;width:min(320px,84vw);cursor:pointer;z-index:2;
   filter:drop-shadow(0 20px 50px rgba(80,60,45,0.5)) drop-shadow(0 4px 14px rgba(80,60,45,0.3));
-  transition:transform .35s ease,filter .35s ease;
+  transition:transform .4s cubic-bezier(0.34,1.56,0.64,1),filter .35s ease;
 }
 .env:hover{transform:translateY(-5px)}
+.env.pressed{transform:scale(.97)}
+.env.open{transform:translateY(-6px) scale(1.015)}
 
 /* letter that rises */
 .env-letter{
   position:absolute;left:9%;right:9%;bottom:10%;height:75%;
   background:linear-gradient(170deg,#fefefe,#f8f5f0);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:10px 12px 8px;z-index:3;opacity:0;transform:translateY(2%);
+  padding:10px 12px 8px;z-index:3;opacity:0;transform:translateY(2%) scale(.985) rotateZ(-.6deg);
   border-radius:1px;
   overflow:hidden;
   box-shadow:0 2px 4px rgba(0,0,0,.06),0 8px 20px rgba(100,75,55,.12),0 18px 40px rgba(100,75,55,.14),inset 0 0 0 1px rgba(180,155,125,.14);
-  transition:transform 1.5s cubic-bezier(0.16,1,0.3,1) .5s,opacity .55s ease .5s;
+  transition:transform 1.7s cubic-bezier(0.19,1.32,0.35,1) .55s,opacity .6s ease .55s;
 }
-.env.open .env-letter{opacity:1;transform:translateY(-112%)}
+.env.open .env-letter{opacity:1;transform:translateY(-114%) scale(1) rotateZ(0deg)}
 .l-top-orn{width:100%;text-align:center;margin-bottom:5px;flex-shrink:0}
 .l-names-block{text-align:center;flex-shrink:0}
 .l-name{font-family:'Pinyon Script',cursive;font-size:clamp(16px,5vw,24px);color:#2a1e14;line-height:1.1;display:block}
@@ -55,16 +76,27 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
   position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);
   width:min(80px,21vw);height:min(80px,21vw);z-index:10;
   filter:drop-shadow(0 5px 12px rgba(100,75,45,.45));
-  transition:transform .35s ease,opacity .3s ease;
+  transition:transform .3s cubic-bezier(0.34,1.56,0.64,1),opacity .4s ease;
 }
 .env:hover .wax{transform:translate(-50%,-46%) scale(1.07)}
-.env.open .wax{opacity:0;pointer-events:none}
+.env.pressed .wax{transform:translate(-50%,-46%) scale(.9)}
+.env.open .wax{opacity:0;transform:translate(-50%,-46%) scale(1.6) rotate(15deg);pointer-events:none}
+
+.seal-flash{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-46%);
+  width:min(80px,21vw);height:min(80px,21vw);z-index:11;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,250,230,1) 0%,rgba(255,235,180,.7) 40%,rgba(255,235,180,0) 72%);
+  opacity:0;pointer-events:none;
+}
+.env.open .seal-flash{animation:flashPop .7s ease-out .05s forwards}
+@keyframes flashPop{0%{opacity:0;transform:translate(-50%,-46%) scale(.3)}35%{opacity:1;transform:translate(-50%,-46%) scale(1.9)}100%{opacity:0;transform:translate(-50%,-46%) scale(2.8)}}
 
 .env-hint{
   position:relative;z-index:2;margin-top:46px;
   font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:5px;font-weight:500;
   color:rgba(70,48,30,.75);text-transform:uppercase;
   animation:pulse 2.5s ease-in-out infinite;
+  transition:opacity .5s ease;
 }
 @keyframes pulse{0%,100%{opacity:.25}50%{opacity:.85}}
 .env-scroll{
@@ -119,7 +151,7 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
 .hdiv{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:12px}
 .hdiv-line{width:52px;height:1px;background:rgba(255,255,255,.4)}
 .hdiv-dia{color:var(--gold-light);font-size:12px}
-.h-date{font-family:'EB Garamond',serif;font-size:clamp(19px,5vw,28px);color:#fff;font-weight:500;letter-spacing:3px;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+.h-date{font-family:'Marcellus',serif;font-size:clamp(19px,5vw,28px);color:#fff;font-weight:500;letter-spacing:3px;text-shadow:0 1px 12px rgba(0,0,0,.6)}
 .h-rsvp{font-family:'Cinzel',serif;font-size:10px;letter-spacing:6px;color:rgba(255,255,255,.8);text-transform:uppercase;margin-top:18px;display:inline-block;text-decoration:none;cursor:pointer;padding:8px 22px;border:1px solid rgba(255,255,255,.35);border-radius:2px;transition:all .35s}
 .h-rsvp:hover{color:#1e1710;background:var(--gold-light);border-color:var(--gold-light)}
 
@@ -132,7 +164,7 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
 .sec-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:#a9814a;text-transform:uppercase;margin-bottom:30px;display:block}
 .d-item{margin:24px 0}
 .d-title{font-family:'Pinyon Script',cursive;font-size:42px;color:var(--dark);display:block}
-.d-text{font-family:'EB Garamond',serif;font-size:18px;font-weight:500;color:var(--dark);opacity:.78;font-style:italic;letter-spacing:.3px;margin-top:4px}
+.d-text{font-family:'Marcellus',serif;font-size:18px;font-weight:500;color:var(--dark);opacity:.78;letter-spacing:.3px;margin-top:4px}
 .gsep{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:0 auto}
 
 /* ══ COUNTDOWN ══ */
@@ -149,11 +181,11 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
 .venue-card{background:rgba(255,240,190,.04);border:1px solid rgba(180,140,70,.2);padding:32px 24px 28px;max-width:400px;margin:0 auto 28px}
 .venue-icon{font-size:24px;margin-bottom:10px;display:block}
 .venue-name{font-family:'Pinyon Script',cursive;font-size:50px;color:var(--gold-light);line-height:1;margin-bottom:10px}
-.venue-addr{font-family:'EB Garamond',serif;font-size:16px;font-weight:500;color:rgba(245,232,205,.85);font-style:italic;line-height:1.8}
+.venue-addr{font-family:'Marcellus',serif;font-size:16px;font-weight:500;color:rgba(245,232,205,.85);line-height:1.8}
 .venue-details{display:flex;flex-direction:column;gap:10px;margin-top:16px}
 .venue-row{display:flex;justify-content:center;align-items:baseline;gap:10px;flex-wrap:wrap}
 .vd-label{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:3px;color:var(--gold-light);text-transform:uppercase}
-.vd-val{font-family:'EB Garamond',serif;font-size:16px;font-weight:500;color:rgba(250,240,220,.9);font-style:italic}
+.vd-val{font-family:'Marcellus',serif;font-size:16px;font-weight:500;color:rgba(250,240,220,.9)}
 .map-wrap{position:relative;width:100%;max-width:500px;height:270px;margin:0 auto;border:1px solid rgba(180,140,70,.2);overflow:hidden}
 .map-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .map-btn{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:var(--dark);background:var(--gold-light);padding:7px 16px;text-decoration:none;text-transform:uppercase;white-space:nowrap;z-index:5}
@@ -170,7 +202,7 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
 .modal-ov.open .modal{transform:translateY(0)}
 .m-title{font-family:'Pinyon Script',cursive;font-size:52px;color:var(--dark);margin-bottom:4px}
 .m-sub{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:#a9814a;text-transform:uppercase;margin-bottom:22px}
-.modal input,.modal select{width:100%;padding:12px 14px;border:1px solid rgba(180,140,70,.3);background:#fff;font-family:'EB Garamond',serif;font-size:16px;font-weight:500;color:var(--dark);margin-bottom:12px;outline:none}
+.modal input,.modal select{width:100%;padding:12px 14px;border:1px solid rgba(180,140,70,.3);background:#fff;font-family:'Marcellus',serif;font-size:16px;font-weight:500;color:var(--dark);margin-bottom:12px;outline:none}
 .modal input:focus,.modal select:focus{border-color:var(--gold)}
 .m-close{position:absolute;top:13px;right:16px;background:none;border:none;font-size:20px;color:var(--dark);cursor:pointer;opacity:.4}
 .btn-gold{width:100%;padding:13px;border:1px solid var(--gold);font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--dark);text-transform:uppercase;cursor:pointer;background:transparent;margin-top:6px;transition:all .3s}
@@ -184,7 +216,10 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
 
 <!-- ══ ENVELOPE SCREEN ══ -->
 <div id="env-screen">
+  <div class="env-glow"></div>
+  <div class="dust" id="dust"></div>
   <div class="env" id="env" onclick="openEnv()">
+    <div class="seal-flash"></div>
 
     <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;overflow:visible">
       <defs>
@@ -376,7 +411,7 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
         <span class="l-name">Nariman</span>
       </div>
       <div class="l-rule"></div>
-      <span class="l-date">June 2 · 2026</span>
+      <span class="l-date">July 27 · 2026</span>
       <div class="l-bottom-orn">
         <svg viewBox="0 0 140 14" xmlns="http://www.w3.org/2000/svg" style="width:55%">
           <path d="M4 7 Q35 2 70 7 Q105 12 136 7" stroke="rgba(130,100,70,0.28)" stroke-width="0.7" fill="none"/>
@@ -436,7 +471,7 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
   </div>
   <div class="h-bot">
     <div class="hdiv"><div class="hdiv-line"></div><span class="hdiv-dia">✦</span><div class="hdiv-line"></div></div>
-    <p class="h-date">June 2, 2026</p>
+    <p class="h-date">July 27, 2026</p>
     <a class="h-rsvp" onclick="openRSVP()">R S V P</a>
   </div>
 </section>
@@ -447,7 +482,7 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
   <div class="gsep reveal"></div>
   <div class="d-item reveal"><span class="d-title">The Bride</span><p class="d-text">Nariman</p></div>
   <div class="gsep reveal"></div>
-  <div class="d-item reveal"><span class="d-title">The Date</span><p class="d-text">Tuesday, June 2nd, 2026</p></div>
+  <div class="d-item reveal"><span class="d-title">The Date</span><p class="d-text">Monday, July 27th, 2026</p></div>
 </section>
 
 <section class="cd-sec">
@@ -471,19 +506,19 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
     <p class="venue-addr">Banha – Kafr El-Gazzar<br>Banha, Al-Qalyubia Governorate</p>
     <div class="gsep" style="margin:16px auto"></div>
     <div class="venue-details">
-      <div class="venue-row"><span class="vd-label">Date</span><span class="vd-val">Tuesday, June 2nd, 2026</span></div>
+      <div class="venue-row"><span class="vd-label">Date</span><span class="vd-val">Monday, July 27th, 2026</span></div>
       <div class="venue-row"><span class="vd-label">Time</span><span class="vd-val">6:00 PM</span></div>
     </div>
   </div>
   <div class="map-wrap reveal">
-    <iframe src="https://maps.google.com/maps?q=30.480621,31.171663&z=16&output=embed" allowfullscreen loading="lazy"></iframe>
-    <a class="map-btn" href="https://maps.google.com/?q=30.480621,31.171663" target="_blank">Open in Google Maps ↗</a>
+    <iframe src="https://maps.google.com/maps?q=30.4824243,31.1723385&z=16&output=embed" allowfullscreen loading="lazy"></iframe>
+    <a class="map-btn" href="https://maps.google.com/?q=30.4824243,31.1723385" target="_blank">Open in Google Maps ↗</a>
   </div>
 </section>
 
 <footer class="footer">
   <span class="f-names">Hesham &amp; Nariman</span>
-  <span class="f-date">June 2 · 2026</span>
+  <span class="f-date">July 27 · 2026</span>
 </footer>
 </div>
 
@@ -501,21 +536,47 @@ html,body{height:100%;font-family:'EB Garamond','Georgia',serif;background:#0d0a
 </div>
 
 <script>
+// ambient floating gold dust
+(function(){
+  const box=document.getElementById('dust');
+  const n=18;
+  for(let i=0;i<n;i++){
+    const s=document.createElement('span');
+    const size=2+Math.random()*3.5;
+    const left=Math.random()*100;
+    const dur=7+Math.random()*7;
+    const delay=Math.random()*9;
+    const dx=(Math.random()*80-40)+'px';
+    s.style.left=left+'vw';
+    s.style.width=size+'px';
+    s.style.height=size+'px';
+    s.style.animationDuration=dur+'s';
+    s.style.animationDelay='-'+delay+'s';
+    s.style.setProperty('--dx',dx);
+    box.appendChild(s);
+  }
+})();
+
 let opened=false;
 function openEnv(){
   if(opened)return; opened=true;
-  document.getElementById('env').classList.add('open');
-  document.getElementById('tFlap').style.transform='rotateX(-185deg)';
+  const env=document.getElementById('env');
+  env.classList.add('pressed');
   document.getElementById('envHint').style.opacity='0';
-  setTimeout(()=>document.getElementById('envScroll').classList.add('show'),1800);
-  setTimeout(revealMain,3000);
-  startMusic();
+  setTimeout(()=>{
+    env.classList.remove('pressed');
+    env.classList.add('open');
+    document.getElementById('tFlap').style.transform='rotateX(-185deg)';
+    setTimeout(()=>document.getElementById('envScroll').classList.add('show'),1800);
+    setTimeout(revealMain,3050);
+    startMusic();
+  },110);
 }
 function revealMain(){
   document.getElementById('main').style.display='block';
   setTimeout(()=>{
     document.getElementById('env-screen').classList.add('hide');
-    setTimeout(()=>document.getElementById('env-screen').style.display='none',1700);
+    setTimeout(()=>document.getElementById('env-screen').style.display='none',1500);
   },200);
 }
 let playing=false;
@@ -528,7 +589,7 @@ function toggleMusic(){
   else{bgMusic.play();playing=true;mbtn.textContent='♫'}
 }
 function tick(){
-  const ms=new Date('2026-06-02T18:00:00')-new Date();
+  const ms=new Date('2026-07-27T18:00:00')-new Date();
   if(ms<=0)return;
   document.getElementById('cdd').textContent=Math.floor(ms/86400000);
   document.getElementById('cdh').textContent=String(Math.floor(ms%86400000/3600000)).padStart(2,'0');
